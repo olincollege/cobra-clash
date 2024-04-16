@@ -40,9 +40,11 @@ class SnakeGameTextView(SnakeGameView):
         model: instance of SnakeGameModel that contains game state
     """
 
-    empty_space = "□"
-    snake_body = "■"
-    snake_heads = {"UP": "▲", "DOWN": "▼", "LEFT": "◀", "RIGHT": "▶"}
+    empty_space = " "
+    snake_one_body = "□"
+    snake_two_body = "■"
+    snake_one_heads = {"UP": "▲", "DOWN": "▼", "LEFT": "◀", "RIGHT": "▶"}
+    snake_two_heads = {"UP": "△", "DOWN": "▽", "LEFT": "◁", "RIGHT": "▷"}
     apple = "◈"
     wall = "▩"
 
@@ -62,12 +64,28 @@ class SnakeGameTextView(SnakeGameView):
                 else:
                     board_row = row - 1
                     board_col = col - 1
-                    if [board_row, board_col] in self.model.snake:
-                        if [board_row, board_col] != self.model.snake[0]:
-                            line += self.snake_body
+                    if [board_row, board_col] in self.model.snake_one.locations:
+                        if [
+                            board_row,
+                            board_col,
+                        ] != self.model.snake_one.locations[0]:
+                            line += self.snake_one_body
                         else:
-                            line += self.snake_heads[
-                                self.model.snake_directions[0]
+                            line += self.snake_one_heads[
+                                self.model.snake_one.directions[0]
+                            ]
+                    elif [
+                        board_row,
+                        board_col,
+                    ] in self.model.snake_two.locations:
+                        if [
+                            board_row,
+                            board_col,
+                        ] != self.model.snake_two.locations[0]:
+                            line += self.snake_one_body
+                        else:
+                            line += self.snake_two_heads[
+                                self.model.snake_two.directions[0]
                             ]
                     elif [board_row, board_col] in self.model.apples:
                         line += self.apple

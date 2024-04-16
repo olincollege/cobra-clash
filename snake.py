@@ -13,6 +13,12 @@ class Snake:
         "RIGHT": [0, 1],
         "LEFT": [0, -1],
     }
+    _backwards_direction_dict = {
+        "UP": "DOWN",
+        "DOWN": "UP",
+        "RIGHT": "LEFT",
+        "LEFT": "RIGHT",
+    }
 
     def __init__(self, head_row, head_col, direction, length):
         """
@@ -27,10 +33,16 @@ class Snake:
         self._locations = [[head_row, head_col]]
         for i in range(1, length):
             segment_row = (
-                self._directions_dict[direction][0] + self._locations[i - 1][0]
+                self._directions_dict[
+                    self._backwards_direction_dict[direction]
+                ][0]
+                + self._locations[i - 1][0]
             )
             segment_col = (
-                self._directions_dict[direction][1] + self._locations[i - 1][1]
+                self._directions_dict[
+                    self._backwards_direction_dict[direction]
+                ][1]
+                + self._locations[i - 1][1]
             )
             self._locations.append([segment_row, segment_col])
 
