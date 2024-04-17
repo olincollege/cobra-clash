@@ -1,3 +1,7 @@
+"""
+Class to represent the model of a two player game of snake
+"""
+
 import random
 from snake import Snake
 
@@ -5,10 +9,20 @@ from snake import Snake
 class SnakeGameModel:
     """
     Class to store and track the state of a snake game
+
+    Attributes:
+        board_width: int representing width of game board
+        board_height: int representing height of game board
+        snake_starting_length: int representing how long snakes start as
+        num_apples: int representing how many apples on board
+        snake_one: instance of snake object
+        snake_two: instance of snake object
+        apples: list of lists with integer coords of apples
+
     """
 
-    _board_width = 20
-    _board_height = 20
+    _board_width = 19
+    _board_height = 19
     _snake_starting_length = 4
     _num_apples = 1
 

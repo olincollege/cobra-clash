@@ -1,9 +1,14 @@
+"""
+Class to represent and control a snake for the game snake
+"""
+
+
 class Snake:
     """
     Class to represent a snake
 
     Attributes:
-        locations: Location of all snake segments as a list of lists
+        locations: Location of all snake segments as a list of lists of ints
         directions: Direction of all snake segments as a list of strings
     """
 
@@ -54,19 +59,9 @@ class Snake:
 
         Attributes:
             direction: String which direction for head to move in
-
-        Returns:
-            Boolean representing if valid move
         """
 
-        backwards_dict = {
-            "UP": "DOWN",
-            "DOWN": "UP",
-            "RIGHT": "LEFT",
-            "LEFT": "RIGHT",
-        }
-
-        if backwards_dict[direction] == self._directions[0]:
+        if self._backwards_direction_dict[direction] == self._directions[0]:
             direction = self._directions[0]
 
         self._locations.pop()
