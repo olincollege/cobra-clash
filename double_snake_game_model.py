@@ -69,10 +69,10 @@ class SnakeGameModel:
         wall_collision_one, wall_collision_two = self._wall_collision()
         snake_collision_one, snake_collision_two = self._snake_collision()
 
-        if not wall_collision_one or not snake_collision_one:
+        if wall_collision_one or snake_collision_one:
             collision_one = True
-        if not wall_collision_two or not snake_collision_two:
-            collision_one = True
+        if wall_collision_two or snake_collision_two:
+            collision_two = True
 
         return collision_one, collision_two
 
@@ -134,8 +134,8 @@ class SnakeGameModel:
                 snake_one = True
 
         # Check that snake one hasn't collided with snake two
-        for i in range(1, len(self._snake_two.locations)):
-            if self._snake_one.locations[0] == self._snake_two.locations[i]:
+        for coord in self._snake_two.locations:
+            if self._snake_one.locations[0] == coord:
                 snake_one = True
 
         # Check that snake two head hasn't collided with self
@@ -144,8 +144,8 @@ class SnakeGameModel:
                 snake_two = True
 
         # Check that snake two hasn't collided with snake one
-        for i in range(1, len(self._snake_one.locations)):
-            if self._snake_two.locations[0] == self._snake_one.locations[i]:
+        for coord in self._snake_one.locations:
+            if self._snake_two.locations[0] == coord:
                 snake_two = True
 
         return snake_one, snake_two

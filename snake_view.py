@@ -41,8 +41,8 @@ class SnakeGameTextView(SnakeGameView):
     """
 
     empty_space = " "
-    snake_one_body = "□"
-    snake_two_body = "■"
+    snake_one_body = "■"
+    snake_two_body = "□"
     snake_one_heads = {"UP": "▲", "DOWN": "▼", "LEFT": "◀", "RIGHT": "▶"}
     snake_two_heads = {"UP": "△", "DOWN": "▽", "LEFT": "◁", "RIGHT": "▷"}
     apple = "◈"
@@ -82,7 +82,7 @@ class SnakeGameTextView(SnakeGameView):
                             board_row,
                             board_col,
                         ] != self.model.snake_two.locations[0]:
-                            line += self.snake_one_body
+                            line += self.snake_two_body
                         else:
                             line += self.snake_two_heads[
                                 self.model.snake_two.directions[0]
