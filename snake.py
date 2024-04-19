@@ -25,33 +25,57 @@ class Snake:
         "LEFT": "RIGHT",
     }
 
-    def __init__(self, head_row, head_col, direction, length):
+    def __init__(
+        self,
+        head_row,
+        head_col,
+        direction,
+        length,
+        directions=None,
+        locations=None,
+    ):
         """
-        Initializes a snake at a location and facing a direction
+        Initializes a snake with head location and direction or with coords
 
-        Attributes:
+        If directions and locations are specified it will initialize only
+        using those specific coordinates and directions. If they are None,
+        it will initialize based on the location of the head and direction
+        the snake is facing.
+
+        Parameters:
             head_row: Integer representing the row location of snake head
             head_col: Integer representing the col location of snake head
             direction: String representing direction the snake is facing
-            length: Integer representing the length of the snake
+            length: Integer greater than 0 representing the length of the snake
+            locations: List of lists of int with locations of snake or None
+            directions: List of strings of directions of segments or None
         """
-        self._locations = [[head_row, head_col]]
-        for i in range(1, length):
-            segment_row = (
-                self._directions_dict[
-                    self._backwards_direction_dict[direction]
-                ][0]
-                + self._locations[i - 1][0]
-            )
-            segment_col = (
-                self._directions_dict[
-                    self._backwards_direction_dict[direction]
-                ][1]
-                + self._locations[i - 1][1]
-            )
-            self._locations.append([segment_row, segment_col])
+        if directions is None and locations is None:
+            self._locations = [[head_row, head_col]]
+            for i in range(1, length):
+                segment_row = (
+                    self._directions_dict[
+                        self._backwards_direction_dict[direction]
+                    ][0]
+                    + self._locations[i - 1][0]
+                )
+                segment_col = (
+                    self._directions_dict[
+                        self._backwards_direction_dict[direction]
+                    ][1]
+                    + self._locations[i - 1][1]
+                )
+                self._locations.append([segment_row, segment_col])
 
-        self._directions = [direction for _ in range(length)]
+            self._directions = [direction for _ in range(length)]
+
+        else:
+            self._locations = []
+            self._directions = []
+            for loc in locations:
+                self._locations.append(loc)
+            for direct in directions:
+                self._directions.append(direct)
 
     def move(self, direction):
         """
