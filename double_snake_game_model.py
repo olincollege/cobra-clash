@@ -172,10 +172,7 @@ class SnakeGameModel:
         # Check and grow snake one
         eaten_indexes = []
         for i, apple in enumerate(self._apples):
-            if (
-                self._snake_one.locations[0] == apple
-                or self._snake_two.locations[0] == apple
-            ):
+            if self._snake_one.locations[0] == apple:
                 eaten_indexes.append(i)
                 self._snake_one.grow()
             if self._snake_two.locations[0] == apple:
