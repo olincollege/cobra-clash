@@ -54,7 +54,8 @@ class SnakeGameModel:
 
     def move_snakes(self, snake_one_direction, snake_two_direction):
         """
-        Advance the snake in the indicated direction and return if either has died
+        Advance the snake in the indicated direction and return if either
+        has died
 
         Attributes:
             direction: String which direction for head to move in

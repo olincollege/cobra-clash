@@ -6,8 +6,8 @@ class SnakeGameModel:
     Class to store and track the state of a snake game
     """
 
-    _board_width = 20
-    _board_height = 20
+    _board_width = 9
+    _board_height = 10
     _snake_starting_length = 3
     _starting_direction = "RIGHT"
     _num_apples = 1
