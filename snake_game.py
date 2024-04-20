@@ -22,10 +22,12 @@ view.draw()
 print(game.move_snakes("RIGHT", "UP"))
 view.draw()
 
+game = SnakeGameModel()
 graphics = GraphicalView(game)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+    game.move_snakes("UP", "LEFT")
     graphics.draw()

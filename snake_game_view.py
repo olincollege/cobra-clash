@@ -38,7 +38,7 @@ class TextView(SnakeGameView):
         """
         Prints the state of the snake game
         """
-        height = self._model.model_height
+        height = self._model.board_height
         width = self._model.board_width
         for row in range(height + 2):
             line = ""
@@ -96,26 +96,36 @@ class GraphicalView(SnakeGameView):
         self._snake_map.fill("White")
         # board size 19 x 19
         self._snake_head = pygame.image.load("images/snake_head.png")
-        self._snake_body_1 = pygame.Surface((50, 50))
-        self._snake_body_1.fill("Green")
+        self._snake_body_one = pygame.Surface((50, 50))
+        self._snake_body_one.fill("Green")
 
-        self._snake_body_2 = pygame.Surface((50, 50))
-        self._snake_body_2.fill("Red")
+        self._snake_body_two = pygame.Surface((50, 50))
+        self._snake_body_two.fill("Red")
 
     def draw(self):
         """summary"""
         self.screen.blit(self._snake_map, (0, 310))
 
         # Draw the self._snake 1
-        for i in range(self._model.sn)
-        self.screen.blit(self._snake_head, (0, 360))
-        self.screen.blit(self._snake_body_1, (0, 310))
+        for index, location in enumerate(self._model.snake_one.locations):
+            print(location)
+            x = location[0]
+            y = location[1]
+            if index == 0:
+                self.screen.blit(self._snake_head, (x * 50, y * 50))
+                continue
+            # self.screen.blit(self._snake_body_one, (x * 50, y * 50))
 
         # Draw the self._snake 2
-        self.screen.blit(self._snake_head, (910, 360))
-        self.screen.blit(self._snake_body_2, (910, 310))
+        for index, location in enumerate(self._model.snake_two.locations):
+            x = location[0]
+            y = location[1]
+            if index == 0:
+                self.screen.blit(self._snake_head, (x * 50, y * 50))
+                continue
+            # self.screen.blit(self._snake_body_two, (x * 50, y * 50))
         # Update the display
         pygame.display.update()
 
         # Set the frames per second for the game
-        self._clock.tick(60)
+        self._clock.tick(1)
