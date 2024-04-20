@@ -29,5 +29,5 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    game.move_snakes("UP", "LEFT")
+    game.move_snakes("DOWN", "LEFT")
     graphics.draw()
