@@ -125,6 +125,7 @@ class GraphicalView(SnakeGameView):
                 )
                 continue
             self.screen.blit(self._snake_body_one, (x * 50, y * 50 + 310))
+            self.screen.blit(self._snake_body_one, (x * 50, y * 50 + 310))
 
         # Draw the self._snake 2
         for index, location in enumerate(self._model.snake_two.locations):
