@@ -88,8 +88,6 @@ class Snake:
         if self._backwards_direction_dict[direction] == self._directions[0]:
             direction = self._directions[0]
 
-        self._locations.pop()
-
         next_head_row = (
             self._locations[0][0] + self._directions_dict[direction][0]
         )
@@ -97,9 +95,9 @@ class Snake:
             self._locations[0][1] + self._directions_dict[direction][1]
         )
         self._locations.insert(0, [next_head_row, next_head_col])
-
-        self._directions.pop()
+        self._locations.pop()
         self._directions.insert(0, direction)
+        self._directions.pop()
 
     def grow(self):
         """
