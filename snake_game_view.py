@@ -141,11 +141,10 @@ class GraphicalView(SnakeGameView):
 
         # Draw the apple
         for apple in self._model.apples:
-            print(apple)
             self.screen.blit(self._apple, (apple[1] * 50, apple[0] * 50 + 310))
 
         # Update the display
         pygame.display.update()
 
         # Set the frames per second for the game
-        self._clock.tick(1)
+        self._clock.tick(3)
