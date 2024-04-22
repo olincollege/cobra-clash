@@ -95,15 +95,23 @@ class GraphicalView(SnakeGameView):
         self._snake_map = pygame.Surface((960, 960))
         self._snake_map.fill("White")
         # board size 19 x 19
-        self._snake_head = pygame.image.load("images/snake_head.png")
-        self._head_directions = {
-            "UP": pygame.transform.rotate(self._snake_head, 180),
-            "DOWN": pygame.transform.rotate(self._snake_head, 0),
-            "RIGHT": pygame.transform.rotate(self._snake_head, 90),
-            "LEFT": pygame.transform.rotate(self._snake_head, -90),
+        self._snake_head_one = pygame.image.load("images/snake_head_one.png")
+        self._head_one_directions = {
+            "UP": pygame.transform.rotate(self._snake_head_one, 180),
+            "DOWN": pygame.transform.rotate(self._snake_head_one, 0),
+            "RIGHT": pygame.transform.rotate(self._snake_head_one, 90),
+            "LEFT": pygame.transform.rotate(self._snake_head_one, -90),
         }
         self._snake_body_one = pygame.Surface((50, 50))
         self._snake_body_one.fill("Green")
+
+        self._snake_head_two = pygame.image.load("images/snake_head_two.png")
+        self._head_two_directions = {
+            "UP": pygame.transform.rotate(self._snake_head_two, 180),
+            "DOWN": pygame.transform.rotate(self._snake_head_two, 0),
+            "RIGHT": pygame.transform.rotate(self._snake_head_two, 90),
+            "LEFT": pygame.transform.rotate(self._snake_head_two, -90),
+        }
 
         self._snake_body_two = pygame.Surface((50, 50))
         self._snake_body_two.fill("Red")
@@ -121,7 +129,7 @@ class GraphicalView(SnakeGameView):
             direction = self._model.snake_one.directions[0]
             if index == 0:
                 self.screen.blit(
-                    self._head_directions[direction], (x * 50, y * 50 + 310)
+                    self._head_one_directions[direction], (x * 50, y * 50 + 310)
                 )
                 continue
             self.screen.blit(self._snake_body_one, (x * 50, y * 50 + 310))
@@ -134,7 +142,7 @@ class GraphicalView(SnakeGameView):
             direction = self._model.snake_two.directions[0]
             if index == 0:
                 self.screen.blit(
-                    self._head_directions[direction], (x * 50, y * 50 + 310)
+                    self._head_two_directions[direction], (x * 50, y * 50 + 310)
                 )
                 continue
             self.screen.blit(self._snake_body_two, (x * 50, y * 50 + 310))
@@ -147,4 +155,4 @@ class GraphicalView(SnakeGameView):
         pygame.display.update()
 
         # Set the frames per second for the game
-        self._clock.tick(3)
+        self._clock.tick(10)

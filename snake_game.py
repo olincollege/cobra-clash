@@ -13,7 +13,7 @@ from snake_game_controller import GraphicalController
 # view.draw()
 # print(game.move_snakes("RIGHT", "LEFT"))
 # view.draw()
-# game.move_snakes("RIGHT", "LEFT")
+# game.move_snakes("RIGHT", "LEFT")s
 # view.draw()
 # print(game.move_snakes("RIGHT", "LEFT"))
 # view.draw()

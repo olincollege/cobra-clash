@@ -16,8 +16,6 @@ class SnakeGameController(ABC):
         """_summary_"""
         super().__init__()
         self._model = model
-        self._snake_one_direction = "RIGHT"
-        self._snake_two_direction = "LEFT"
 
     @abstractmethod
     def move(self):
@@ -31,6 +29,25 @@ class GraphicalController(SnakeGameController):
         SnakeGameController (_type_): _description_
     """
 
+    _player_one_moves = {
+        pygame.K_UP: "UP",
+        pygame.K_DOWN: "DOWN",
+        pygame.K_LEFT: "LEFT",
+        pygame.K_RIGHT: "RIGHT",
+    }
+
+    _player_two_moves = {
+        pygame.K_w: "UP",
+        pygame.K_s: "DOWN",
+        pygame.K_a: "LEFT",
+        pygame.K_d: "RIGHT",
+    }
+
+    def __init__(self, model):
+        super().__init__(model)
+        self._player_one_cue = ["RIGHT"]
+        self._player_two_cue = ["LEFT"]
+
     def move(self):
         """summary"""
 
@@ -39,24 +56,22 @@ class GraphicalController(SnakeGameController):
                 sys.exit()
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    self._snake_one_direction = "UP"
-                elif event.key == pygame.K_DOWN:
-                    self._snake_one_direction = "DOWN"
-                elif event.key == pygame.K_LEFT:
-                    self._snake_one_direction = "LEFT"
-                elif event.key == pygame.K_RIGHT:
-                    self._snake_one_direction = "RIGHT"
-
-                if event.key == pygame.K_w:
-                    self._snake_two_direction = "UP"
-                elif event.key == pygame.K_s:
-                    self._snake_two_direction = "DOWN"
-                elif event.key == pygame.K_a:
-                    self._snake_two_direction = "LEFT"
-                elif event.key == pygame.K_d:
-                    self._snake_two_direction = "RIGHT"
+                if event.key in self._player_one_moves:
+                    if len(self._player_one_cue) < 3:
+                        self._player_one_cue.append(
+                            self._player_one_moves[event.key]
+                        )
+                elif event.key in self._player_two_moves:
+                    if len(self._player_two_cue) < 3:
+                        self._player_two_cue.append(
+                            self._player_two_moves[event.key]
+                        )
 
         self._model.move_snakes(
-            self._snake_one_direction, self._snake_two_direction
+            self._player_one_cue[0], self._player_two_cue[0]
         )
+
+        if len(self._player_one_cue) > 1:
+            self._player_one_cue.pop(0)
+        if len(self._player_two_cue) > 1:
+            self._player_two_cue.pop(0)
