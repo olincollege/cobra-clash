@@ -2,7 +2,7 @@
 Running the snake game
 """
 
-from double_snake_game_model import SnakeGameModel
+from snake_game_model import SnakeGameModel
 from snake_game_view import GraphicalView
 from snake_game_controller import GraphicalController
 
