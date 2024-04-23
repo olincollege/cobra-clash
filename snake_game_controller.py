@@ -59,9 +59,9 @@ class GraphicalController(SnakeGameController):
     def fetch_events(self):
         """Fetch all pygame events and store them internally."""
         self.events = pygame.event.get()
-        self.process_events()
+        self._process_events()
 
-    def process_events(self):
+    def _process_events(self):
         """Process the stored events to update game state accordingly."""
         for event in self.events:
             if event.type == pygame.QUIT:

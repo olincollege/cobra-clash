@@ -76,7 +76,7 @@ class SnakeGameModel:
         self._snake_one.move(snake_one_direction)
         self._snake_two.move(snake_two_direction)
 
-        self._check_and_eat()
+        self._check_eating_and_grow()
 
     def collision(self):
         """
@@ -172,7 +172,7 @@ class SnakeGameModel:
 
         return snake_one, snake_two
 
-    def _check_and_eat(self):
+    def _check_eating_and_grow(self):
         """
         Checks if the snake is eating and if so grows and generates new apple
         """
@@ -187,9 +187,9 @@ class SnakeGameModel:
                 self._snake_two.grow()
 
         for index in eaten_indexes:
-            self._new_apple(index)
+            self._generate_new_apple(index)
 
-    def _new_apple(self, old_index):
+    def _generate_new_apple(self, old_index):
         """
         Change apple location at index to new location
         """

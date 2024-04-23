@@ -19,9 +19,9 @@ def main():
     running = True
     game_active = False
 
+    graphics.draw()
     while running:
         controller.fetch_events()  # Update events at the start of each frame
-        graphics.draw()
 
         if not game_active and controller.start_game():
             game_active = True
@@ -31,6 +31,7 @@ def main():
 
         if game_active:
             controller.move()
+            graphics.draw()
             one_collision, two_collision = game.collision()
             if one_collision or two_collision:
                 game_active = False
