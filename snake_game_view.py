@@ -155,4 +155,4 @@ class GraphicalView(SnakeGameView):
         pygame.display.update()
 
         # Set the frames per second for the game
-        self._clock.tick(10)
+        self._clock.tick(3)

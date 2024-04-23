@@ -30,6 +30,18 @@ class SnakeGameModel:
         """
         Creates an instance of the SnakeGameState class
         """
+        self._setup()
+
+    def reset(self):
+        """
+        Resets the attributes to the intial state
+        """
+        self._setup()
+
+    def _setup(self):
+        """
+        Sets the attributes of the game to inital state
+        """
         self._snake_one = Snake(
             self._board_height // 2,
             (self._board_width // 2) - 4,
@@ -60,18 +72,13 @@ class SnakeGameModel:
         Attributes:
             direction: String which direction for head to move in
 
-        Returns:
-            bool: whether snake one has died
-            bool: whether snake two has died
         """
         self._snake_one.move(snake_one_direction)
         self._snake_two.move(snake_two_direction)
 
         self._check_and_eat()
 
-        return self._collision()
-
-    def _collision(self):
+    def collision(self):
         """
         Checks if either snake has collided with itself, each other, or wall
 

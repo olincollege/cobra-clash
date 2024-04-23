@@ -75,3 +75,14 @@ class GraphicalController(SnakeGameController):
             self._player_one_cue.pop(0)
         if len(self._player_two_cue) > 1:
             self._player_two_cue.pop(0)
+
+    def start_game(self):
+        """
+        Returns true if space is pressed
+        """
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                return True
+            return False
