@@ -44,13 +44,13 @@ class SnakeGameModel:
         """
         self._snake_one = Snake(
             self._board_height // 2,
-            (self._board_width // 2) - 4,
+            (self._board_width // 2) - 5,
             "RIGHT",
             self._snake_starting_length,
         )
         self._snake_two = Snake(
             self._board_height // 2,
-            (self._board_width // 2) + 4,
+            (self._board_width // 2) + 5,
             "LEFT",
             self._snake_starting_length,
         )

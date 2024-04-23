@@ -2,8 +2,6 @@
 Running the snake game
 """
 
-import time
-import sys
 from double_snake_game_model import SnakeGameModel
 from snake_game_view import GraphicalView
 from snake_game_controller import GraphicalController
@@ -18,22 +16,24 @@ def main():
     graphics = GraphicalView(game)
     controller = GraphicalController(game)
 
-    while True:
+    running = True
+    game_active = False
+
+    while running:
+        controller.fetch_events()  # Update events at the start of each frame
         graphics.draw()
 
-        while True:
-            if controller.start_game():
-                graphics.draw()
-                break
+        if not game_active and controller.start_game():
+            game_active = True
+            game.reset()
+            controller.reset()
+            continue
 
-        while True:
+        if game_active:
             controller.move()
             one_collision, two_collision = game.collision()
-            graphics.draw()
             if one_collision or two_collision:
-                break
-
-        game.reset()
+                game_active = False
 
 
 if __name__ == "__main__":

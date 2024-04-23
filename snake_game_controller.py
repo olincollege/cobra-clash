@@ -47,14 +47,26 @@ class GraphicalController(SnakeGameController):
         super().__init__(model)
         self._player_one_cue = ["RIGHT"]
         self._player_two_cue = ["LEFT"]
+        self.events = []
+        self.space_pressed = False
 
-    def move(self):
-        """summary"""
+    def reset(self):
+        self._player_one_cue = ["RIGHT"]
+        self._player_two_cue = ["LEFT"]
+        self.events = []
+        self.space_pressed = False
 
-        for event in pygame.event.get():
+    def fetch_events(self):
+        """Fetch all pygame events and store them internally."""
+        self.events = pygame.event.get()
+        self.process_events()
+
+    def process_events(self):
+        """Process the stored events to update game state accordingly."""
+        for event in self.events:
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
-
             elif event.type == pygame.KEYDOWN:
                 if event.key in self._player_one_moves:
                     if len(self._player_one_cue) < 3:
@@ -66,23 +78,22 @@ class GraphicalController(SnakeGameController):
                         self._player_two_cue.append(
                             self._player_two_moves[event.key]
                         )
+                elif event.key == pygame.K_SPACE:
+                    self.space_pressed = True
 
+    def start_game(self):
+        """Check if the game should start based on internal state."""
+        if self.space_pressed:
+            self.space_pressed = False  # Reset the flag
+            return True
+        return False
+
+    def move(self):
+        """Update game state based on the first command in the queue, if available."""
         self._model.move_snakes(
             self._player_one_cue[0], self._player_two_cue[0]
         )
-
         if len(self._player_one_cue) > 1:
             self._player_one_cue.pop(0)
         if len(self._player_two_cue) > 1:
             self._player_two_cue.pop(0)
-
-    def start_game(self):
-        """
-        Returns true if space is pressed
-        """
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                return True
-            return False
