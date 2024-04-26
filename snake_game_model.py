@@ -18,7 +18,6 @@ class SnakeGameModel:
         snake_one: instance of snake object
         snake_two: instance of snake object
         apples: list of lists with integer coords of apples
-
     """
 
     _board_width = 19
@@ -26,34 +25,71 @@ class SnakeGameModel:
     _snake_starting_length = 4
     _num_apples = 1
 
-    def __init__(self):
+    def __init__(
+        self,
+        snake_one_locations=None,
+        snake_one_directions=None,
+        snake_two_locations=None,
+        snake_two_directions=None,
+    ):
         """
         Creates an instance of the SnakeGameState class
         """
-        self._setup()
+        self._setup(
+            snake_one_locations=snake_one_locations,
+            snake_one_directions=snake_one_directions,
+            snake_two_locations=snake_two_locations,
+            snake_two_directions=snake_two_directions,
+        )
 
     def reset(self):
         """
-        Resets the attributes to the intial state
+        Resets the attributes to the default state
         """
         self._setup()
 
-    def _setup(self):
+    def _setup(
+        self,
+        snake_one_locations=None,
+        snake_one_directions=None,
+        snake_two_locations=None,
+        snake_two_directions=None,
+    ):
         """
         Sets the attributes of the game to inital state
         """
-        self._snake_one = Snake(
-            self._board_height // 2,
-            (self._board_width // 2) - 5,
-            "RIGHT",
-            self._snake_starting_length,
-        )
-        self._snake_two = Snake(
-            self._board_height // 2,
-            (self._board_width // 2) + 5,
-            "LEFT",
-            self._snake_starting_length,
-        )
+        if snake_one_locations is None or snake_one_directions is None:
+            self._snake_one = Snake(
+                self._board_height // 2,
+                (self._board_width // 2) - 5,
+                "RIGHT",
+                self._snake_starting_length,
+            )
+        else:
+            self._snake_one = Snake(
+                None,
+                None,
+                None,
+                None,
+                directions=snake_one_directions,
+                locations=snake_one_locations,
+            )
+        if snake_two_locations is None or snake_two_directions is None:
+            self._snake_two = Snake(
+                self._board_height // 2,
+                (self._board_width // 2) + 5,
+                "LEFT",
+                self._snake_starting_length,
+            )
+        else:
+            self._snake_two = Snake(
+                None,
+                None,
+                None,
+                None,
+                directions=snake_two_directions,
+                locations=snake_two_locations,
+            )
 
         self._apples = []
         for i in range(1, self._num_apples + 1):

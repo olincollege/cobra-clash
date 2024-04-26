@@ -90,6 +90,11 @@ class GraphicalController(SnakeGameController):
 
     def move(self):
         """Update game state based on the first command in the queue, if available."""
+        if len(self._player_one_cue) > 1:
+            self._player_one_cue.pop(0)
+        if len(self._player_two_cue) > 1:
+            self._player_two_cue.pop(0)
+
         self._model.move_snakes(
             self._player_one_cue[0], self._player_two_cue[0]
         )
