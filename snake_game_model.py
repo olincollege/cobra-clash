@@ -99,6 +99,7 @@ class SnakeGameModel:
                     self.board_width // 2,
                 ]
             )
+        self._game_state = 1
 
     def move_snakes(self, snake_one_direction, snake_two_direction):
         """
@@ -131,6 +132,9 @@ class SnakeGameModel:
             collision_one = True
         if wall_collision_two or snake_collision_two:
             collision_two = True
+
+        if collision_one or collision_two:
+            self._game_state = 3
 
         return collision_one, collision_two
 
@@ -240,6 +244,19 @@ class SnakeGameModel:
                     empty_spaces.append([row, col])
 
         self._apples[old_index] = random.choice(empty_spaces)
+
+    def set_game_state(self, new_state):
+        """
+        Sets the game state to new game state
+        """
+        self._game_state = new_state
+
+    @property
+    def game_state(self):
+        """
+        Returns the current game state
+        """
+        return self._game_state
 
     @property
     def board_width(self):
