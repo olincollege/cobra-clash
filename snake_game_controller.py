@@ -48,13 +48,11 @@ class GraphicalController(SnakeGameController):
         self._player_one_cue = ["RIGHT"]
         self._player_two_cue = ["LEFT"]
         self.events = []
-        self.space_pressed = False
 
     def reset(self):
         self._player_one_cue = ["RIGHT"]
         self._player_two_cue = ["LEFT"]
         self.events = []
-        self.space_pressed = False
 
     def fetch_events(self):
         """Fetch all pygame events and store them internally."""
@@ -68,28 +66,29 @@ class GraphicalController(SnakeGameController):
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key in self._player_one_moves:
-                    if len(self._player_one_cue) < 3:
-                        self._player_one_cue.append(
-                            self._player_one_moves[event.key]
-                        )
-                elif event.key in self._player_two_moves:
-                    if len(self._player_two_cue) < 3:
-                        self._player_two_cue.append(
-                            self._player_two_moves[event.key]
-                        )
-                elif event.key == pygame.K_SPACE:
-                    self.space_pressed = True
-
-    def start_game(self):
-        """Check if the game should start based on internal state."""
-        if self.space_pressed:
-            self.space_pressed = False  # Reset the flag
-            return True
-        return False
+                if self._model.game_state == 1:
+                    if event.key == pygame.K_SPACE:
+                        self._model.set_game_state(2)
+                elif self._model.game_state == 2:
+                    if event.key in self._player_one_moves:
+                        if len(self._player_one_cue) < 3:
+                            self._player_one_cue.append(
+                                self._player_one_moves[event.key]
+                            )
+                    elif event.key in self._player_two_moves:
+                        if len(self._player_two_cue) < 3:
+                            self._player_two_cue.append(
+                                self._player_two_moves[event.key]
+                            )
+                else:
+                    if event.key == pygame.K_SPACE:
+                        self._model.reset()
+                        self.reset()
+                        self._model.set_game_state(2)
 
     def move(self):
-        """Update game state based on the first command in the queue, if available."""
+        """Update game state based on the first command in the queue,
+        if available."""
         if len(self._player_one_cue) > 1:
             self._player_one_cue.pop(0)
         if len(self._player_two_cue) > 1:

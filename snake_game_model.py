@@ -41,6 +41,7 @@ class SnakeGameModel:
             snake_two_locations=snake_two_locations,
             snake_two_directions=snake_two_directions,
         )
+        self._game_state = 1
 
     def reset(self):
         """
@@ -56,7 +57,7 @@ class SnakeGameModel:
         snake_two_directions=None,
     ):
         """
-        Sets the attributes of the game to inital state
+        Sets the attributes of the game to initial state
         """
         if snake_one_locations is None or snake_one_directions is None:
             self._snake_one = Snake(
@@ -99,7 +100,6 @@ class SnakeGameModel:
                     self.board_width // 2,
                 ]
             )
-        self._game_state = 1
 
     def move_snakes(self, snake_one_direction, snake_two_direction):
         """

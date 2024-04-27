@@ -13,28 +13,17 @@ def main():
     """
 
     game = SnakeGameModel()
-    graphics = GraphicalView(game)
+    graphics = GraphicalView(game, 1050, 1280)
     controller = GraphicalController(game)
 
-    running = True
-    game_active = False
-
-    graphics.draw()
-    while running:
+    while True:
         controller.fetch_events()  # Update events at the start of each frame
-
-        if not game_active and controller.start_game():
-            game_active = True
-            game.reset()
-            controller.reset()
-            continue
-
-        if game_active:
+        if game.game_state == 2:
             controller.move()
-            graphics.draw()
-            one_collision, two_collision = game.collision()
-            if one_collision or two_collision:
-                game_active = False
+            if True in game.collision():
+                game.set_game_state(3)
+
+        graphics.draw(3)
 
 
 if __name__ == "__main__":

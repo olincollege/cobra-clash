@@ -10,6 +10,7 @@ class Snake:
     Attributes:
         locations: Location of all snake segments as a list of lists of ints
         directions: Direction of all snake segments as a list of strings
+        _apples_eaten: Number of apples eaten as an integer
     """
 
     _directions_dict = {
@@ -50,6 +51,7 @@ class Snake:
             locations: List of lists of int with locations of snake or None
             directions: List of strings of directions of segments or None
         """
+        self._apples_eaten = 0
         if directions is None and locations is None:
             self._locations = [[head_row, head_col]]
             for i in range(1, length):
@@ -122,6 +124,7 @@ class Snake:
 
         self._locations.append([new_row, new_col])
         self._directions.append(tail_direction)
+        self._apples_eaten += 1
 
     @property
     def directions(self):
@@ -136,3 +139,10 @@ class Snake:
         Returns the locations of all snake segments as a list of strings
         """
         return self._locations
+
+    @property
+    def apples_eaten(self):
+        """
+        Returns the number of apples eaten by the snake as an integer
+        """
+        return self._apples_eaten
