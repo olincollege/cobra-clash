@@ -99,10 +99,11 @@ class GraphicalView(SnakeGameView):
         self._snake_map = pygame.image.load("images/snake_map.jpeg")
 
         # To place the assets properly on the board
-        self._shift = height - width
+        self._shift = (width - height) / 2
         self._in_bounds_shift = 50
 
         # Assets
+        self._background = pygame.image.load("images/background.png")
         self._start_screen = pygame.image.load("images/start_screen.png")
         self._snake_one_wins = pygame.image.load("images/snake_one_wins.png")
         self._snake_two_wins = pygame.image.load("images/snake_two_wins.png")
@@ -141,8 +142,8 @@ class GraphicalView(SnakeGameView):
         for index, location in enumerate(snake.locations):
             # Convert the index for the square in the grade into the
             # pixel location on the screen
-            x = location[1] * 50 + self._in_bounds_shift
-            y = location[0] * 50 + self._shift + self._in_bounds_shift
+            x = location[1] * 50 + self._shift + self._in_bounds_shift
+            y = location[0] * 50 + self._in_bounds_shift
             direction = snake.directions[0]
             if index == 0:
                 self._screen.blit(
@@ -157,7 +158,8 @@ class GraphicalView(SnakeGameView):
 
     def _draw_running_game(self):
         """_summary_"""
-        self._screen.blit(self._snake_map, (0, self._shift))
+        self._screen.blit(self._background, (0, 0))
+        self._screen.blit(self._snake_map, (self._shift, 0))
 
         # Draw the snakes
         self._draw_snake(
@@ -172,18 +174,18 @@ class GraphicalView(SnakeGameView):
             self._screen.blit(
                 self._apple,
                 (
-                    apple[1] * 50 + self._in_bounds_shift,
-                    apple[0] * 50 + self._shift + self._in_bounds_shift,
+                    apple[1] * 50 + self._shift + self._in_bounds_shift,
+                    apple[0] * 50 + self._in_bounds_shift,
                 ),
             )
 
     def _draw_end_screen(self):
         """_summary_"""
-        if self._model.collision()[0] and self._model.collision()[1]:
+        if self._model.snake_won()[0] and self._model.snake_won()[1]:
             self._screen.blit(self._tie, (0, 0))
-        elif self._model.collision()[1]:
+        elif self._model.snake_won()[0]:
             self._screen.blit(self._snake_one_wins, (0, 0))
-        else:
+        elif self._model.snake_won()[1]:
             self._screen.blit(self._snake_two_wins, (0, 0))
 
     def draw(self, frame_rate):

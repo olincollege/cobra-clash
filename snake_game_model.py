@@ -115,7 +115,29 @@ class SnakeGameModel:
 
         self._check_and_eat()
 
-    def collision(self):
+    def snake_won(self):
+        """
+        Checks whether a player has won or not
+
+        Returns:
+            bool: whether snake one has won
+            bool: whether snake two has won
+        """
+
+        snake_one_won = False
+        snake_two_won = False
+
+        if self._collision()[0] and self._collision()[1]:
+            snake_one_won = True
+            snake_two_won = True
+        elif self._collision()[1] or self._snake_one.apples_eaten == 10:
+            snake_one_won = True
+        elif self._collision()[0] or self._snake_two.apples_eaten == 10:
+            snake_two_won = True
+
+        return snake_one_won, snake_two_won
+
+    def _collision(self):
         """
         Checks if either snake has collided with itself, each other, or wall
 
