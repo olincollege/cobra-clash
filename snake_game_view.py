@@ -90,10 +90,17 @@ class GraphicalView(SnakeGameView):
     def __init__(self, model, width, height):
         super().__init__(model)
 
+        self._width = width
+        self._height = height
+
         # Initializing pygame
+        pygame.init()
         self._screen = pygame.display.set_mode((width, height))
         self._clock = pygame.time.Clock()
         pygame.display.set_caption("Cobra Clash")
+
+        # Configuring font for showing scores
+        self._font = pygame.font.Font("fonts/beech.ttf", 100)
 
         # Snake map with a 19 x 19 grid
         self._snake_map = pygame.image.load("images/snake_map.jpeg")
@@ -152,6 +159,22 @@ class GraphicalView(SnakeGameView):
                 continue
             self._screen.blit(snake_body, (x, y))
 
+    def _draw_scores(self, score_snake_one, score_snake_two):
+        """_summary_"""
+        text_surface_one = self._font.render(
+            f"{score_snake_one}", True, (0, 255, 0)
+        )
+        text_rect_one = text_surface_one.get_rect()
+        text_rect_one.center = (self._shift / 2, self._height / 2)
+        self._screen.blit(text_surface_one, text_rect_one)
+
+        text_surface_two = self._font.render(
+            f"{score_snake_two}", True, (255, 0, 0)
+        )
+        text_rect_two = text_surface_two.get_rect()
+        text_rect_two.center = (self._width - self._shift / 2, self._height / 2)
+        self._screen.blit(text_surface_two, text_rect_two)
+
     def _draw_start_screen(self):
         """_summary_"""
         self._screen.blit(self._start_screen, (0, 0))
@@ -160,6 +183,12 @@ class GraphicalView(SnakeGameView):
         """_summary_"""
         self._screen.blit(self._background, (0, 0))
         self._screen.blit(self._snake_map, (self._shift, 0))
+
+        # Draw the scores of each player
+        self._draw_scores(
+            self._model.snake_one.apples_eaten,
+            self._model.snake_two.apples_eaten,
+        )
 
         # Draw the snakes
         self._draw_snake(
