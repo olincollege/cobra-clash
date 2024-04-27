@@ -100,6 +100,7 @@ class GraphicalView(SnakeGameView):
 
         # To place the assets properly on the board
         self._shift = height - width
+        self._in_bounds_shift = 50
 
         # Assets
         self._start_screen = pygame.image.load("images/start_screen.png")
@@ -140,8 +141,8 @@ class GraphicalView(SnakeGameView):
         for index, location in enumerate(snake.locations):
             # Convert the index for the square in the grade into the
             # pixel location on the screen
-            x = location[1] * 50
-            y = location[0] * 50 + self._shift
+            x = location[1] * 50 + self._in_bounds_shift
+            y = location[0] * 50 + self._shift + self._in_bounds_shift
             direction = snake.directions[0]
             if index == 0:
                 self._screen.blit(
@@ -169,7 +170,11 @@ class GraphicalView(SnakeGameView):
         # Draw the apple
         for apple in self._model.apples:
             self._screen.blit(
-                self._apple, (apple[1] * 50, apple[0] * 50 + self._shift)
+                self._apple,
+                (
+                    apple[1] * 50 + self._in_bounds_shift,
+                    apple[0] * 50 + self._shift + self._in_bounds_shift,
+                ),
             )
 
     def _draw_end_screen(self):
