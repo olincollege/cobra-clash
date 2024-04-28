@@ -116,12 +116,10 @@ class SnakeGameModel:
 
         self._apples = []
         for i in range(1, self._num_apples + 1):
-            self._apples.append(
-                [
-                    i * (self._board_height // (self._num_apples + 1)),
-                    self.board_width // 2,
-                ]
-            )
+            self._apples.append([
+                i * (self._board_height // (self._num_apples + 1)),
+                self.board_width // 2,
+            ])
 
     def move_snakes(self, snake_one_direction, snake_two_direction):
         """

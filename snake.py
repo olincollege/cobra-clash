@@ -10,7 +10,7 @@ class Snake:
     Attributes:
         locations: Location of all snake segments as a list of lists of ints
         directions: Direction of all snake segments as a list of strings
-        _apples_eaten: Number of apples eaten as an integer
+        apples_eaten: Number of apples eaten as an integer
     """
 
     _directions_dict = {

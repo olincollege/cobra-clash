@@ -1,32 +1,44 @@
 """Controller class for snake game"""
 
 import sys
-import pygame
 from abc import ABC, abstractmethod
+import pygame
 
 
 class SnakeGameController(ABC):
-    """_summary_
+    """
+    An abstract class used for controlling the board according to
+    the input provided from the user
 
-    Args:
-        ABC (_type_): _description_
+    Attributes:
+        _model: An instance of the SnakeGameModel class
     """
 
     def __init__(self, model):
-        """_summary_"""
+        """
+        Initializes an instance of the SnakeGameController class
+
+        Parameters:
+            model: An instance of the SnakeGameModel class
+        """
         super().__init__()
         self._model = model
 
     @abstractmethod
     def move(self):
-        """_summary_"""
+        """
+        An abstract method to move the snakes according to the input
+        of the user, defined in the following class
+        """
 
 
 class GraphicalController(SnakeGameController):
-    """_summary_
+    """
+    A class inheriting from the SnakeGameController class to control
+    the snakes according to the inputs
 
-    Args:
-        SnakeGameController (_type_): _description_
+    Parameters:
+        SnakeGameController: An instance of the SnakeGameController class
     """
 
     _player_one_moves = {
@@ -44,12 +56,21 @@ class GraphicalController(SnakeGameController):
     }
 
     def __init__(self, model):
+        """
+        Initializes the GraphicController class
+
+        Parameters:
+            model: An instance of the SnakeGameModel class
+        """
         super().__init__(model)
         self._player_one_cue = ["RIGHT"]
         self._player_two_cue = ["LEFT"]
         self.events = []
 
     def reset(self):
+        """
+        Resets the different variables used to move the snakes
+        """
         self._player_one_cue = ["RIGHT"]
         self._player_two_cue = ["LEFT"]
         self.events = []
