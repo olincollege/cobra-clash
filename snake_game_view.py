@@ -79,15 +79,6 @@ class GraphicalView(SnakeGameView):
         self._shift = (width - height) / 2
         self._in_bounds_shift = 50
 
-        # Assets
-        self._snake_one_head = pygame.image.load("images/snake_head_one.png")
-        self._snake_one_body = pygame.Surface((50, 50))
-        self._snake_one_body.fill("Green")
-
-        self._snake_two_head = pygame.image.load("images/snake_head_two.png")
-        self._snake_two_body = pygame.Surface((50, 50))
-        self._snake_two_body.fill("Red")
-
     def _snake_head_direction(self, snake_head, direction):
         """
         Rotates the snake's head image according to the snake's direction
@@ -171,6 +162,15 @@ class GraphicalView(SnakeGameView):
         """
         Draws all the assets of the game on the screen when it is running
         """
+        # Assets
+        snake_one_head = pygame.image.load("images/snake_head_one.png")
+        snake_one_body = pygame.Surface((50, 50))
+        snake_one_body.fill("Green")
+
+        snake_two_head = pygame.image.load("images/snake_head_two.png")
+        snake_two_body = pygame.Surface((50, 50))
+        snake_two_body.fill("Red")
+
         background = pygame.image.load("images/background.png")
         snake_map = pygame.image.load("images/snake_map.jpeg")
         apple_image = pygame.image.load("images/apple.png")
@@ -185,12 +185,8 @@ class GraphicalView(SnakeGameView):
         )
 
         # Draw the snakes
-        self._draw_snake(
-            self._model.snake_one, self._snake_one_body, self._snake_one_head
-        )
-        self._draw_snake(
-            self._model.snake_two, self._snake_two_body, self._snake_two_head
-        )
+        self._draw_snake(self._model.snake_one, snake_one_body, snake_one_head)
+        self._draw_snake(self._model.snake_two, snake_two_body, snake_two_head)
 
         # Draw the apple
         for apple in self._model.apples:
