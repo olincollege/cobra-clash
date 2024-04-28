@@ -338,43 +338,43 @@ def test_move(
     assert snake_one.directions == output_directions
 
 
-# @pytest.mark.parametrize(
-#     "head_row, head_col, direction, length, "
-#     + "locations, directions, output_locations, output_directions",
-#     grow_cases,
-# )
-# def test_grow(
-#     head_row,
-#     head_col,
-#     direction,
-#     length,
-#     locations,
-#     directions,
-#     output_locations,
-#     output_directions,
-# ):
-#     """
-#     Test that the snake grows correctly
+@pytest.mark.parametrize(
+    "head_row, head_col, direction, length, "
+    + "locations, directions, output_locations, output_directions",
+    grow_cases,
+)
+def test_grow(
+    head_row,
+    head_col,
+    direction,
+    length,
+    locations,
+    directions,
+    output_locations,
+    output_directions,
+):
+    """
+    Test that the snake grows correctly
 
-#     Parameters:
-#         move_directions: List of strings representing moves
-#         head_row: Integer representing the row location of snake head
-#         head_col: Integer representing the col location of snake head
-#         direction: String representing direction the snake is facing
-#         length: Integer greater than 0 representing the length of the snake
-#         locations: List of lists int with locations of snake or None
-#         directions: List of strings of directions of segments or None
-#         output_locations: List of lists of int with final locations of snake
-#         output_directions: List of strings of directions of final location
-#     """
-#     snake_one = Snake(
-#         [head_row, head_col],
-#         direction,
-#         length,
-#         locations_and_directions=[locations, directions],
-#     )
+    Parameters:
+        move_directions: List of strings representing moves
+        head_row: Integer representing the row location of snake head
+        head_col: Integer representing the col location of snake head
+        direction: String representing direction the snake is facing
+        length: Integer greater than 0 representing the length of the snake
+        locations: List of lists int with locations of snake or None
+        directions: List of strings of directions of segments or None
+        output_locations: List of lists of int with final locations of snake
+        output_directions: List of strings of directions of final location
+    """
+    snake_one = Snake(
+        [head_row, head_col],
+        direction,
+        length,
+        locations_and_directions=[locations, directions],
+    )
 
-#     snake_one.grow()
+    snake_one.grow()
 
-#     assert snake_one.locations == output_locations
-#     assert snake_one.directions == output_directions
+    assert snake_one.locations == output_locations
+    assert snake_one.directions == output_directions
