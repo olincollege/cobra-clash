@@ -83,7 +83,7 @@ class SnakeGameModel:
         """
         if snake_one_locations is None or snake_one_directions is None:
             self._snake_one = Snake(
-                (self._board_height // 2) + 1,
+                (self._board_height // 2) - 1,
                 (self._board_width // 2) - 5,
                 "RIGHT",
                 self._snake_starting_length,
@@ -99,7 +99,7 @@ class SnakeGameModel:
             )
         if snake_two_locations is None or snake_two_directions is None:
             self._snake_two = Snake(
-                (self._board_height // 2) - 1,
+                (self._board_height // 2) + 1,
                 (self._board_width // 2) + 5,
                 "LEFT",
                 self._snake_starting_length,
