@@ -18,6 +18,8 @@ class SnakeGameModel:
         snake_one: instance of snake object
         snake_two: instance of snake object
         apples: list of lists with integer coords of apples
+        game_state: integer representing phase of game (starting screen,
+        playing game, ending screen)
     """
 
     _board_width = 19
@@ -34,6 +36,16 @@ class SnakeGameModel:
     ):
         """
         Creates an instance of the SnakeGameState class
+
+        Parameters:
+            snake_one_locations: list of lists containing initial integer
+            coords for snake one segments
+            snake_one_directions: list of strings with initial directions for
+            snake one segments
+            snake_two_locations: list of lists containing initial integer
+            coords for snake two segments
+            snake_two_directions: list of strings with initial directions for
+            snake two segments
         """
         self._setup(
             snake_one_locations=snake_one_locations,
@@ -58,6 +70,16 @@ class SnakeGameModel:
     ):
         """
         Sets the attributes of the game to initial state
+
+        Parameters:
+            snake_one_locations: list of lists containing initial integer
+            coords for snake one segments
+            snake_one_directions: list of strings with initial directions for
+            snake one segments
+            snake_two_locations: list of lists containing initial integer
+            coords for snake two segments
+            snake_two_directions: list of strings with initial directions for
+            snake two segments
         """
         if snake_one_locations is None or snake_one_directions is None:
             self._snake_one = Snake(
@@ -106,9 +128,9 @@ class SnakeGameModel:
         Advance the snake in the indicated direction and return if either
         has died
 
-        Attributes:
-            direction: String which direction for head to move in
-
+        Parameters:
+            snake_one_direction: String of direction for snake one to move in
+            snake_two_direction: String of direction for snake two to move in
         """
         self._snake_one.move(snake_one_direction)
         self._snake_two.move(snake_two_direction)
@@ -254,6 +276,9 @@ class SnakeGameModel:
     def _new_apple(self, old_index):
         """
         Change apple location at index to new location
+
+        Parameters:
+            old_index: Integer representing the index of the apple to update
         """
         empty_spaces = []
         for row in range(self._board_height):
@@ -270,54 +295,63 @@ class SnakeGameModel:
     def set_game_state(self, new_state):
         """
         Sets the game state to new game state
+
+        Parameters:
+            new_state: Integer representing the new state
         """
         self._game_state = new_state
 
     @property
     def game_state(self):
         """
-        Returns the current game state
+        Returns the current game state as int
         """
         return self._game_state
 
     @property
     def board_width(self):
         """
-        Returns the current game model
+        Returns the board width as an int
         """
         return self._board_width
 
     @property
     def board_height(self):
         """
-        Returns the current game model
+        Returns the board height as an int
         """
         return self._board_height
 
     @property
     def snake_starting_length(self):
         """
-        Returns the current game model
+        Returns the snake starting length as an int
         """
         return self._snake_starting_length
 
     @property
     def snake_one(self):
         """
-        Returns the current game model
+        Gets snake one
+
+        Returns:
+            Snake: instance of snake class
         """
         return self._snake_one
 
     @property
     def snake_two(self):
         """
-        Returns the current game model
+        Gets snake two
+
+        Returns:
+            Snake: instance of snake class
         """
         return self._snake_two
 
     @property
     def apples(self):
         """
-        Returns the current game model
+        Returns the location of the apples as a list of list of coordinates
         """
         return self._apples
