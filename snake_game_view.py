@@ -26,6 +26,14 @@ class SnakeGameView(ABC):
         super().__init__()
         self._model = model
 
+    @property
+    def model(self):
+        """
+        A property that returns the snake game model stored in the
+        SnakeGameModel instance
+        """
+        return self._model
+
     @abstractmethod
     def draw(self, frame_rate):
         """

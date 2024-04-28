@@ -116,10 +116,12 @@ class SnakeGameModel:
 
         self._apples = []
         for i in range(1, self._num_apples + 1):
-            self._apples.append([
-                i * (self._board_height // (self._num_apples + 1)),
-                self.board_width // 2,
-            ])
+            self._apples.append(
+                [
+                    i * (self._board_height // (self._num_apples + 1)),
+                    self.board_width // 2,
+                ]
+            )
 
     def move_snakes(self, snake_one_direction, snake_two_direction):
         """
@@ -298,6 +300,65 @@ class SnakeGameModel:
             new_state: Integer representing the new state
         """
         self._game_state = new_state
+
+    def __repr__(self):
+        """
+        Defines how the map would be printed
+        """
+        empty_space = " "
+        snake_one_body = "■"
+        snake_two_body = "□"
+        snake_one_heads = {"UP": "▲", "DOWN": "▼", "LEFT": "◀", "RIGHT": "▶"}
+        snake_two_heads = {"UP": "△", "DOWN": "▽", "LEFT": "◁", "RIGHT": "▷"}
+        apple = "◈"
+        wall = "▩"
+
+        output = ""
+        for row in range(self.board_height + 2):
+            line = ""
+            for col in range(self.board_width + 2):
+                if row == 0 or col == 0:
+                    line += wall
+                elif (
+                    row == self.board_height + 1 or col == self.board_width + 1
+                ):
+                    line += wall
+                else:
+                    board_row = row - 1
+                    board_col = col - 1
+                    if [
+                        board_row,
+                        board_col,
+                    ] in self.snake_one.locations:
+                        if [
+                            board_row,
+                            board_col,
+                        ] != self.snake_one.locations[0]:
+                            line += snake_one_body
+                        else:
+                            line += snake_one_heads[
+                                self.snake_one.directions[0]
+                            ]
+                    elif [
+                        board_row,
+                        board_col,
+                    ] in self.snake_two.locations:
+                        if [
+                            board_row,
+                            board_col,
+                        ] != self.snake_two.locations[0]:
+                            line += snake_two_body
+                        else:
+                            line += snake_two_heads[
+                                self.snake_two.directions[0]
+                            ]
+                    elif [board_row, board_col] in self.apples:
+                        line += apple
+
+                    else:
+                        line += empty_space
+            output += line + "\n"
+        return output
 
     @property
     def game_state(self):

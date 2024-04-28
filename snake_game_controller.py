@@ -24,6 +24,14 @@ class SnakeGameController(ABC):
         super().__init__()
         self._model = model
 
+    @property
+    def model(self):
+        """
+        A property that returns the snake game model stored in the
+        SnakeGameModel instance
+        """
+        return self._model
+
     @abstractmethod
     def move(self):
         """
