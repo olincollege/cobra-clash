@@ -2,6 +2,7 @@
 Test snake game model class
 """
 
+# pylint: disable=too-many-arguments
 import pytest
 from snake_game_model import SnakeGameModel
 

@@ -28,12 +28,10 @@ class Snake:
 
     def __init__(
         self,
-        head_row,
-        head_col,
+        head_location,
         direction,
         length,
-        directions=None,
-        locations=None,
+        locations_and_directions=None,
     ):
         """
         Initializes a snake with head location and direction or with coords
@@ -44,16 +42,22 @@ class Snake:
         the snake is facing.
 
         Parameters:
-            head_row: Integer representing the row location of snake head
-            head_col: Integer representing the col location of snake head
+            head_location: list of two integers for row and col of head
             direction: String representing direction the snake is facing
             length: Integer greater than 0 representing the length of the snake
-            locations: List of lists of int with locations of snake or None
-            directions: List of strings of directions of segments or None
+            locations_and_directions: List of lists with the first list being a
+              list of lists of int with coordinates of segments and the second
+                a list of strings of directions of segments
         """
         self._apples_eaten = 0
+        if locations_and_directions is None:
+            locations = None
+            directions = None
+        else:
+            locations = locations_and_directions[0]
+            directions = locations_and_directions[1]
         if directions is None and locations is None:
-            self._locations = [[head_row, head_col]]
+            self._locations = [[head_location[0], head_location[1]]]
             for i in range(1, length):
                 segment_row = (
                     self._directions_dict[

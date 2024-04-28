@@ -83,8 +83,7 @@ class SnakeGameModel:
         """
         if snake_one_locations is None or snake_one_directions is None:
             self._snake_one = Snake(
-                (self._board_height // 2) - 1,
-                (self._board_width // 2) - 5,
+                [self._board_height // 2 - 1, (self._board_width // 2) - 5],
                 "RIGHT",
                 self._snake_starting_length,
             )
@@ -93,14 +92,14 @@ class SnakeGameModel:
                 None,
                 None,
                 None,
-                None,
-                directions=snake_one_directions,
-                locations=snake_one_locations,
+                locations_and_directions=[
+                    snake_one_locations,
+                    snake_one_directions,
+                ],
             )
         if snake_two_locations is None or snake_two_directions is None:
             self._snake_two = Snake(
-                (self._board_height // 2) + 1,
-                (self._board_width // 2) + 5,
+                [self._board_height // 2 + 1, self._board_width // 2 + 5],
                 "LEFT",
                 self._snake_starting_length,
             )
@@ -109,9 +108,10 @@ class SnakeGameModel:
                 None,
                 None,
                 None,
-                None,
-                directions=snake_two_directions,
-                locations=snake_two_locations,
+                locations_and_directions=[
+                    snake_two_locations,
+                    snake_two_directions,
+                ],
             )
 
         self._apples = []
@@ -317,44 +317,29 @@ class SnakeGameModel:
         for row in range(self.board_height + 2):
             line = ""
             for col in range(self.board_width + 2):
-                if row == 0 or col == 0:
-                    line += wall
-                elif (
-                    row == self.board_height + 1 or col == self.board_width + 1
+                if row in (0, self.board_height + 1) or col in (
+                    0,
+                    self.board_width + 1,
                 ):
                     line += wall
                 else:
-                    board_row = row - 1
-                    board_col = col - 1
-                    if [
-                        board_row,
-                        board_col,
-                    ] in self.snake_one.locations:
-                        if [
-                            board_row,
-                            board_col,
-                        ] != self.snake_one.locations[0]:
-                            line += snake_one_body
-                        else:
-                            line += snake_one_heads[
-                                self.snake_one.directions[0]
-                            ]
-                    elif [
-                        board_row,
-                        board_col,
-                    ] in self.snake_two.locations:
-                        if [
-                            board_row,
-                            board_col,
-                        ] != self.snake_two.locations[0]:
-                            line += snake_two_body
-                        else:
-                            line += snake_two_heads[
-                                self.snake_two.directions[0]
-                            ]
-                    elif [board_row, board_col] in self.apples:
-                        line += apple
+                    board_row, board_col = row - 1, col - 1
+                    board_pos = [board_row, board_col]
 
+                    if board_pos in self.snake_one.locations:
+                        line += (
+                            snake_one_heads[self.snake_one.directions[0]]
+                            if board_pos == self.snake_one.locations[0]
+                            else snake_one_body
+                        )
+                    elif board_pos in self.snake_two.locations:
+                        line += (
+                            snake_two_heads[self.snake_two.directions[0]]
+                            if board_pos == self.snake_two.locations[0]
+                            else snake_two_body
+                        )
+                    elif board_pos in self.apples:
+                        line += apple
                     else:
                         line += empty_space
             output += line + "\n"
