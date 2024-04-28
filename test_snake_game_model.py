@@ -52,8 +52,8 @@ init_and_setup_cases = [
     ),
 ]
 
-collision_cases = [
-    # Test no collision with default initialization
+snake_won_cases = [
+    # Test no player winning with default initialization
     (
         None,
         None,
@@ -71,34 +71,34 @@ collision_cases = [
         True,
         True,
     ),
-    # Test snake two collide snake one
+    # Test snake two collides with snake one
     (
         [[5, 4], [5, 3], [5, 2]],
         ["RIGHT", "RIGHT", "RIGHT"],
         [[5, 3], [6, 3], [7, 3]],
         ["UP", "UP", "UP"],
-        False,
         True,
+        False,
     ),
-    # Test snake one collide snake two
+    # Test snake one collides with snake two
     (
         [[5, 3], [6, 3], [7, 3]],
         ["UP", "UP", "UP"],
         [[5, 4], [5, 3], [5, 2]],
         ["RIGHT", "RIGHT", "RIGHT"],
-        True,
         False,
+        True,
     ),
-    # Test snake one collide with bottom wall
+    # Test snake one collides with bottom wall
     (
         [[19, 5], [18, 5], [17, 5]],
         ["DOWN", "DOWN", "DOWN"],
         None,
         None,
-        True,
         False,
+        True,
     ),
-    # Test snake two collide with left wall and snake one right wall
+    # Test snake two collides with left wall and snake one with right wall
     (
         [[9, 19], [9, 18], [9, 17]],
         ["RIGHT", "RIGHT", "RIGHT"],
@@ -107,7 +107,7 @@ collision_cases = [
         True,
         True,
     ),
-    # Test snake one collide with top wall and snake two snake one
+    # Test snake one collides with top wall and snake two with snake one
     (
         [[-1, 5], [0, 5], [1, 5]],
         ["UP", "UP", "UP"],
@@ -115,6 +115,15 @@ collision_cases = [
         ["LEFT", "LEFT", "LEFT"],
         True,
         True,
+    ),
+    # Neither snake collides with anything
+    (
+        [[5, 5], [5, 6], [5, 7]],
+        ["RIGHT", "RIGHT", "RIGHT"],
+        [[15, 5], [15, 6], [15, 7]],
+        ["LEFT", "LEFT", "LEFT"],
+        False,
+        False,
     ),
 ]
 
@@ -188,16 +197,16 @@ def test_reset():
 
 @pytest.mark.parametrize(
     "snake_one_locations, snake_one_directions, snake_two_locations, "
-    + "snake_two_directions, snake_one_collision, snake_two_collision",
-    collision_cases,
+    + "snake_two_directions, snake_one_won, snake_two_won",
+    snake_won_cases,
 )
-def test_collision(
+def test_snake_won(
     snake_one_locations,
     snake_one_directions,
     snake_two_locations,
     snake_two_directions,
-    snake_one_collision,
-    snake_two_collision,
+    snake_one_won,
+    snake_two_won,
 ):
     """
     Check that the collision logic is correct
@@ -208,8 +217,8 @@ def test_collision(
     snake_two_locations: list of lists with initial integer coordinates for
     segments
     snake_two_directions: list of strings with initial directions for segments
-    snake_one_collision: boolean of if snake one is colliding
-    snake_two_collision: boolean of if snake one is colliding
+    snake_one_won: boolean of if snake one has won
+    snake_two_won: boolean of if snake one has won
     """
     game = SnakeGameModel(
         snake_one_locations=snake_one_locations,
@@ -218,7 +227,7 @@ def test_collision(
         snake_two_directions=snake_two_directions,
     )
 
-    snake_one, snake_two = game.collision()
+    snake_one, snake_two = game.snake_won()
 
-    assert snake_one == snake_one_collision
-    assert snake_two == snake_two_collision
+    assert snake_one == snake_one_won
+    assert snake_two == snake_two_won
