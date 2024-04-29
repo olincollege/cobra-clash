@@ -1,9 +1,7 @@
 ## Goals
 As a player in this game, your goal is to eat 10 apples before your opponent does, but be careful to avoid running into walls, yourself, or your competitor. One collision and its game over!
 
-<p align="center">
-  <src="https://github.com/olincollege/snake-game/blob/main/docs/snake_game_gif.gif?raw=true">
-</p>
+<img src="{{ "images/VideoDemo.gif" | prepend: site.baseurl | prepend: site.url}}" alt="Video Demo" />
 
 ## Unique Features
 While you might be familiar with the classic snake game, our inspired version includes two players. This adds more complexity as the game progresses and reduces the directions to turn when conflict arises.
