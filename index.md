@@ -2,13 +2,9 @@
 As a player in this game, your goal is to eat 10 apples before your opponent does, but be careful to avoid running into walls, yourself, or your competitor. One collision and its game over!
 
 ## Demo
-<p align="center">
-  <img width="500" height="375" src="https://github.com/olincollege/snake-pygame/blob/main/images/apple.png">
-</p>
 
-
-
-
+![](images/VideoDemo.gif)
+![](images/apple.png)
 ## Unique Features
 While you might be familiar with the classic snake game, our inspired version includes two players. This adds more complexity as the game progresses and reduces the directions to turn when conflict arises.
 
