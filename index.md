@@ -4,7 +4,7 @@ As a player in this game, your goal is to eat 10 apples before your opponent doe
 ## Demo
 
 ![](images/VideoDemo.gif)
-![](images/apple.png)
+
 ## Unique Features
 While you might be familiar with the classic snake game, our inspired version includes two players. This adds more complexity as the game progresses and reduces the directions to turn when conflict arises.
 
