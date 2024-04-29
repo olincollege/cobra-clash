@@ -3,7 +3,7 @@ As a player in this game, your goal is to eat 10 apples before your opponent doe
 
 ## Demo
 <p align="center">
-  <img width="500" height="375" src="https://github.com/olincollege/snake-pygame/blob/main/images/VideoDemo.gif">
+  <img width="500" height="375" src="https://github.com/olincollege/snake-pygame/blob/main/images/apple.png">
 </p>
 
 
